@@ -1,5 +1,6 @@
 package com.example.android_final_test;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -48,7 +49,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        MenuViewHolder.ItemClickListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     CollectionReference category;
@@ -59,7 +61,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     FirebaseFirestore db;
     CollectionReference collectionReference;
     ArrayList<Category> categories;
-
+    MenuViewHolder menuViewHolder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,52 +124,16 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Category category = new Category(document.getString("Name"), document.getString("Image"));
+                                Category category = new Category(document.getId(), document.getString("Name"), document.getString("Image"));
                                 categories.add(category);
                             }
-                            MenuViewHolder menuViewHolder = new MenuViewHolder(getBaseContext(), categories);
+                            menuViewHolder = new MenuViewHolder(getBaseContext(), categories, Home.this);
                             recyclerView.setAdapter(menuViewHolder);
                         } else {
                             Toast.makeText(Home.this, "Get failed", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-//        databaseReference = firebaseDatabase.getReference("Category");
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Category post = dataSnapshot.getValue(Category.class);
-//                System.out.println(post);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                System.out.println("The read failed: " + databaseError.getCode());
-//            }
-//        });
-//        FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
-//                .setQuery(databaseReference, Category.class)
-//                .build();
-
-//        FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(options) {
-//            @Override
-//            protected void onBindViewHolder(@NonNull MenuViewHolder holder, int position, @NonNull Category model) {
-//                holder.textCategoryName.setText(model.getName());
-//                Picasso.with(getBaseContext()).load(model.getImage())
-//                        .into(holder.imageView);
-//            }
-//
-//            @NonNull
-//            @Override
-//            public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View view = LayoutInflater.from(parent.getContext())
-//                        .inflate(R.layout.activity_category_item_view, parent, false);
-//                return new MenuViewHolder(view);
-//            }
-//        };
-//        adapter.startListening();
-//        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -192,12 +158,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     @Override
-    public void onBackPressed(){
-        if(drawer.isDrawerOpen(GravityCompat.START)){
-            drawer.closeDrawer(GravityCompat.START);
-        }
-        else{
-            super.onBackPressed();
-        }
+    public void onClick(int position) {
+        categories.get(position);
+        System.out.println(categories.get(position).getName());
+        Intent intent = new Intent(this, FoodList.class);
+        intent.putExtra("CategoryId", categories.get(position).getId());
+        startActivity(intent);
     }
 }

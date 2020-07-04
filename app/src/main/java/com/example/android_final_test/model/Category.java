@@ -2,9 +2,10 @@ package com.example.android_final_test.model;
 
 public class Category {
 
-    private String Name, Image;
+    private String Id, Name, Image;
 
-    public Category(String name, String image) {
+    public Category(String id, String name, String image) {
+        Id = id;
         Name = name;
         Image = image;
     }
@@ -26,5 +27,13 @@ public class Category {
 
     public void setImage(String image) {
         Image = image;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 }
