@@ -2,9 +2,6 @@ package com.example.android_final_test;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +23,6 @@ import com.example.android_final_test.viewHolder.FoodViewHolder;
 import com.example.android_final_test.viewHolder.MenuViewHolder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -55,14 +49,12 @@ public class FoodList extends AppCompatActivity implements FoodViewHolder.ItemCl
         setContentView(R.layout.activity_food);
 
         db = FirebaseFirestore.getInstance();
+        food = db.collection("Food");
 
         foods = new ArrayList<>();
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
 
         recyclerView = findViewById(R.id.recyler_food);
         recyclerView.setHasFixedSize(true);
-//        layoutManager = new LinearLayoutManager(this);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -78,8 +70,7 @@ public class FoodList extends AppCompatActivity implements FoodViewHolder.ItemCl
     }
 
     private void loadFood(String categoryId) {
-        db = FirebaseFirestore.getInstance();
-        food = db.collection("Food");
+//        db = FirebaseFirestore.getInstance();
         Query query = food.whereEqualTo("CategoryId", categoryId);
         query.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -114,26 +105,5 @@ public class FoodList extends AppCompatActivity implements FoodViewHolder.ItemCl
         intent.putExtra("FoodId", foods.get(position).getId());
         startActivity(intent);
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.home, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onSupportNavigateUp() {
-////        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-////        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-////                || super.onSupportNavigateUp();
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        return false;
-//    }
-
 
 }

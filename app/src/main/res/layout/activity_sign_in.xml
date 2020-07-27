@@ -17,6 +17,7 @@
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editPhone"
+
             android:hint="Phone number"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -30,17 +31,17 @@
             app:met_singleLineEllipsis="true"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/editPassword"
-        android:hint="Password"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:textColorHint="@android:color/white"
-        android:text="123"
-        android:textSize="30dp"
-        android:inputType="textPassword"
-        app:met_baseColor="@color/whiteColor"
-        app:met_floatingLabel="highlight"
-        app:met_singleLineEllipsis="true"/>
+            android:id="@+id/editPassword"
+            android:hint="Password"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textColorHint="@android:color/white"
+            android:text="123"
+            android:textSize="30dp"
+            android:inputType="textPassword"
+            app:met_baseColor="@color/whiteColor"
+            app:met_floatingLabel="highlight"
+            app:met_singleLineEllipsis="true"/>
 
     </LinearLayout>
 

@@ -58,7 +58,9 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
                                     progressDialog.dismiss();
-                                    User user = new User(document.getString("Name"), document.getString("Password"));
+                                    User user = new User(document.getString("Name"),
+                                            document.getString("Password"));
+                                    user.setPhone(editPhone.getText().toString());
                                     if(document.getString("Password").equals(editPassword.getText().toString())){
                                         Intent intentHome = new Intent(SignIn.this, Home.class);
                                         Private.currentUser = user;

@@ -7,24 +7,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.example.android_final_test.model.Category;
 import com.example.android_final_test.model.Private;
+import com.example.android_final_test.view.Cart;
 import com.example.android_final_test.viewHolder.MenuViewHolder;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,6 +44,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         MenuViewHolder.ItemClickListener {
@@ -56,6 +53,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     CollectionReference category;
     TextView textName;
     RecyclerView recyclerView;
+    ViewFlipper viewFlipper;
     RecyclerView.LayoutManager layoutManager;
     DrawerLayout drawer;
     FirebaseFirestore db;
@@ -68,7 +66,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         setContentView(R.layout.activity_home);
 
         db = FirebaseFirestore.getInstance();
-
+        int restaurantImage[] = {R.drawable.restaurant1, R.drawable.restaurant2, R.drawable.restaurant3};
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
@@ -77,8 +75,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent cartIntent = new Intent(Home.this, Cart.class);
+                startActivity(cartIntent);
             }
         });
         drawer = findViewById(R.id.drawer_layout);
@@ -91,16 +89,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         navigationView.setNavigationItemSelectedListener(this);
 
         categories = new ArrayList<>();
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-//        NavigationUI.setupWithNavController(navigationView, navController);
 
         View headerView = navigationView.getHeaderView(0);
         textName = headerView.findViewById(R.id.fullName);
@@ -111,8 +104,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //        layoutManager = new LinearLayoutManager(this);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        
+
+        viewFlipper = findViewById(R.id.sliderMenu);
         loadCategory();
+
+        for(int img : restaurantImage){
+            flipperImage(img);
+        }
     }
 
     private void loadCategory() {
@@ -127,6 +125,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                 Category category = new Category(document.getId(), document.getString("Name"), document.getString("Image"));
                                 categories.add(category);
                             }
+
                             menuViewHolder = new MenuViewHolder(getBaseContext(), categories, Home.this);
                             recyclerView.setAdapter(menuViewHolder);
                         } else {
@@ -164,5 +163,17 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Intent intent = new Intent(this, FoodList.class);
         intent.putExtra("CategoryId", categories.get(position).getId());
         startActivity(intent);
+    }
+
+    public void flipperImage(int img){
+        ImageView imageView = new ImageView(this);
+        imageView.setBackgroundResource(img);
+
+        viewFlipper.addView(imageView);
+        viewFlipper.setAutoStart(true);
+        viewFlipper.setFlipInterval(3000);
+
+        viewFlipper.setInAnimation(this, android.R.anim.slide_in_left);
+        viewFlipper.setOutAnimation(this, android.R.anim.slide_out_right);
     }
 }

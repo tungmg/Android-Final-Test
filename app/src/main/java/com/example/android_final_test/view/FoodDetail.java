@@ -3,15 +3,20 @@ package com.example.android_final_test.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.android_final_test.Database.Database;
 import com.example.android_final_test.FoodList;
+import com.example.android_final_test.Home;
 import com.example.android_final_test.R;
 import com.example.android_final_test.model.Food;
+import com.example.android_final_test.model.Order;
 import com.example.android_final_test.viewHolder.FoodViewHolder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,7 +31,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-public class FoodDetail extends AppCompatActivity {
+import java.text.NumberFormat;
+import java.util.Locale;
+
+public class FoodDetail extends AppCompatActivity implements View.OnClickListener{
 
     TextView foodName, foodPrice, foodDes;
     ImageView imageView;
@@ -38,6 +46,7 @@ public class FoodDetail extends AppCompatActivity {
     CollectionReference food;
     FirebaseFirestore db;
 
+    Food currentFood;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +54,8 @@ public class FoodDetail extends AppCompatActivity {
 
         elegantNumberButton = findViewById(R.id.numberBtn);
         btnCart = findViewById(R.id.btnCart);
+
+        btnCart.setOnClickListener(this);
 
         foodName = findViewById(R.id.foodName);
         foodPrice = findViewById(R.id.foodPrice);
@@ -75,17 +86,19 @@ public class FoodDetail extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if(documentSnapshot.exists()){
-                                Food food = new Food(documentSnapshot.getId(),
+                                currentFood = new Food(documentSnapshot.getId(),
                                         documentSnapshot.getString("Name"),
                                         documentSnapshot.getString("Description"),
                                         documentSnapshot.getString("Image"),
                                         (Long)documentSnapshot.get("Price"),
                                         (Long)documentSnapshot.get("Discount"),
                                         documentSnapshot.getString("CategoryId"));
-                                Picasso.with(getBaseContext()).load(food.getImage()).into(imageView);
-                                collapsingToolbarLayout.setTitle(food.getName());
-                                foodPrice.setText(Long.toString(food.getPrice()));
-                                foodDes.setText(food.getDescription());
+                                Picasso.with(getBaseContext()).load(currentFood.getImage()).into(imageView);
+                                foodName.setText(currentFood.getName());
+                                Locale locale = new Locale("vi", "VN");
+                                NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
+                                foodPrice.setText(fmt.format(currentFood.getPrice()));
+                                foodDes.setText(currentFood.getDescription());
                             }
                         } else {
                             Toast.makeText(FoodDetail.this, "Get failed", Toast.LENGTH_LONG).show();
@@ -93,5 +106,21 @@ public class FoodDetail extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == btnCart){
+            new Database(this).addToCart(new Order(
+                    foodId,
+                    currentFood.getName(),
+                    elegantNumberButton.getNumber(),
+                    Long.toString(currentFood.getPrice()),
+                    Long.toString(currentFood.getDiscount())
+            ));
+            Intent intentMenu = new Intent(FoodDetail.this, Home.class);
+            startActivity(intentMenu);
+            Toast.makeText(FoodDetail.this, "Added to Cart", Toast.LENGTH_LONG).show();
+        }
     }
 }
