@@ -6,9 +6,9 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_menu"
-            android:icon="@drawable/menu"
+            android:icon="@drawable/ic_person_black_24dp"
             android:iconTint="@color/whiteColor"
-            android:title="@string/menu" />
+            android:title="@string/account" />
         <item
             android:id="@+id/nav_cart"
             android:icon="@drawable/cart"
@@ -16,7 +16,7 @@
         <item
             android:id="@+id/nav_order"
             android:icon="@drawable/order"
-            android:title="@string/order" />
+            android:title="@string/order_status" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"

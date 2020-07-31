@@ -23,14 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class CartViewHolder extends RecyclerView.Adapter<CartViewHolder.ViewHolder> {
+public class CartViewHolder extends RecyclerView.Adapter<CartViewHolder.ViewHolder> implements View.OnClickListener{
 
     List<Order> carts  = new ArrayList<>();
     Context mContext;
+    ItemClickListener itemClickListener;
 
-    public CartViewHolder(Context context, List<Order> carts) {
+    public CartViewHolder(Context context, List<Order> carts, ItemClickListener itemClickListener) {
         this.carts = carts;
         this.mContext = context;
+        this.itemClickListener = itemClickListener;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     @NonNull
@@ -38,7 +45,7 @@ public class CartViewHolder extends RecyclerView.Adapter<CartViewHolder.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater =LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.activity_cart_item_view,parent,false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, itemClickListener);
     }
 
     @Override
@@ -59,17 +66,41 @@ public class CartViewHolder extends RecyclerView.Adapter<CartViewHolder.ViewHold
         return carts.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView textFoodName;
         TextView textFoodPrice;
         ImageView imageFoodCount;
-        public ViewHolder(@NonNull View itemView) {
+        ImageView imageDelete;
+        ItemClickListener itemClickListener;
+        public ViewHolder(@NonNull View itemView, final ItemClickListener itemClickListener) {
             super(itemView);
             textFoodName = itemView.findViewById(R.id.cart_item_name);
             textFoodPrice = itemView.findViewById(R.id.cart_item_price);
             imageFoodCount = itemView.findViewById(R.id.cart_item_count);
-        }
+            imageDelete = itemView.findViewById(R.id.removeItem);
+            this.itemClickListener = itemClickListener;
 
+            itemView.setOnClickListener(this);
+            imageDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    itemClickListener.onDeleteClick(position);
+                }
+            });
+        }
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(getAdapterPosition());
+        }
     }
 
+    public interface ItemClickListener {
+        void onClick(int position);
+        void onDeleteClick(int position);
+    }
+
+    public void setOnItemClickListener(ItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
+    }
 }

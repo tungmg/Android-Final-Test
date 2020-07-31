@@ -28,6 +28,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/cart"
-        android:backgroundTint="@color/btnSignIn"/>
+        android:backgroundTint="@color/btnSignUp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

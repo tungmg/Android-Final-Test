@@ -15,6 +15,8 @@ import android.widget.ViewFlipper;
 import com.example.android_final_test.model.Category;
 import com.example.android_final_test.model.Private;
 import com.example.android_final_test.view.Cart;
+import com.example.android_final_test.view.PersonAccount;
+import com.example.android_final_test.view.SignIn;
 import com.example.android_final_test.viewHolder.MenuViewHolder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -153,7 +155,27 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        int id = item.getItemId();
+        if(id == R.id.nav_menu){
+            Intent personAccount = new Intent(Home.this, PersonAccount.class);
+            startActivity(personAccount);
+        }
+        else if(id == R.id.nav_cart){
+            Intent cart = new Intent(Home.this, Cart.class);
+            startActivity(cart);
+        }
+        else if(id == R.id.nav_order){
+
+        }
+        else if(id == R.id.nav_logout){
+            Intent logout = new Intent(Home.this, SignIn.class);
+            logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(logout);
+        }
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override

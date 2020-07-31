@@ -13,12 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.PersonAccount"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBQpurE2sn92FIy9Lplfi05_3gQzwfJpTM"/>
+            android:value="AIzaSyBQpurE2sn92FIy9Lplfi05_3gQzwfJpTM" />
 
-        <activity android:name=".view.Cart"></activity>
+        <activity android:name=".view.Cart" />
         <activity android:name=".view.FoodDetail" />
         <activity android:name=".view.FoodActivity" />
         <activity

@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +33,7 @@ import com.example.android_final_test.model.Order;
 import com.example.android_final_test.model.Private;
 import com.example.android_final_test.model.Request;
 import com.example.android_final_test.viewHolder.CartViewHolder;
+import com.example.android_final_test.viewModel.ViewModelCartCount;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -38,6 +42,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,7 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class Cart extends AppCompatActivity implements View.OnClickListener {
+public class Cart extends AppCompatActivity implements View.OnClickListener, CartViewHolder.ItemClickListener {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -59,7 +64,6 @@ public class Cart extends AppCompatActivity implements View.OnClickListener {
     FusedLocationProviderClient fusedLocationProviderClient;
 
     List<Order> cart = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,19 +82,24 @@ public class Cart extends AppCompatActivity implements View.OnClickListener {
         loadOrder();
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+
     }
 
-    private void loadOrder() {
+    public Integer loadOrder() {
+        Integer count = 0;
         cart = new Database(this).getCarts();
-        CartViewHolder cartViewHolder = new CartViewHolder(getBaseContext(), cart);
+        CartViewHolder cartViewHolder = new CartViewHolder(getBaseContext(), cart, Cart.this);
         recyclerView.setAdapter(cartViewHolder);
         int total = 0;
         for(Order order : cart){
             total += (Integer.parseInt(order.getPrice()))*(Integer.parseInt(order.getQuantity()));
+            count ++;
         }
         Locale locale = new Locale("vi", "VN");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
         textViewTotal.setText(fmt.format(total));
+        return count;
     }
 
     @Override
@@ -183,5 +192,15 @@ public class Cart extends AppCompatActivity implements View.OnClickListener {
             }
         });
         alert.show();
+    }
+
+    @Override
+    public void onClick(int position) {
+
+    }
+
+    @Override
+    public void onDeleteClick(int position) {
+
     }
 }
