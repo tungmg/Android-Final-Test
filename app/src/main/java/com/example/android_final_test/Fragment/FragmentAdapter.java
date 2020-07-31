@@ -17,10 +17,10 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0:
+            case 1:
                 EditFragment editFragment = new EditFragment();
                 return editFragment;
-            case 1:
+            case 0:
                 InformationFragment informationFragment = new InformationFragment();
                 return informationFragment;
         }

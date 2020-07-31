@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background2"
+    android:background="@drawable/background4"
     tools:context=".view.SignIn">
 
     <LinearLayout
@@ -14,6 +14,12 @@
         android:layout_marginRight="10dp"
         android:layout_centerInParent="true"
         android:orientation="vertical">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Phone Number"
+            android:textSize="15dp"
+            android:textColor="@android:color/white"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editPhone"
@@ -24,11 +30,16 @@
             android:textSize="30dp"
             android:inputType="phone"
             app:met_baseColor="@android:color/white"
-            app:met_floatingLabel="highlight"
             app:met_maxCharacters="11"
             app:met_primaryColor="@android:color/white"
-            app:met_singleLineEllipsis="true"
-            app:met_floatingLabelTextSize="20dp"/>
+            app:met_singleLineEllipsis="true"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Password"
+            android:textSize="15dp"
+            android:textColor="@android:color/white"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editPassword"
@@ -39,10 +50,8 @@
             android:textSize="30dp"
             android:inputType="textPassword"
             app:met_baseColor="@color/whiteColor"
-            app:met_floatingLabel="highlight"
             app:met_primaryColor="@android:color/white"
-            app:met_singleLineEllipsis="true"
-            app:met_floatingLabelTextSize="20dp"/>
+            app:met_singleLineEllipsis="true"/>
 
     </LinearLayout>
 

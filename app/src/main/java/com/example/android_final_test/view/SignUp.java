@@ -54,7 +54,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         if(v == btnSignUp){
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             final DocumentReference documentReference = db.collection("User").document(editPhone.getText().toString());
-            documentReference.get()
+            documentReference
+                    .get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -67,7 +68,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                                 }
                                 else {
                                     progressDialog.dismiss();
-                                    if(!name.equals("") || !phone.equals("") || !password.equals("") || !password.equals(reenterPassword)){
+                                    if(!name.equals("") && !phone.equals("") && !password.equals("") && password.equals(reenterPassword)){
                                         User user = new User(name, password);
                                         documentReference.set(user)
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background2"
+    android:background="@drawable/background3"
     tools:context=".view.SignUp">
 
     <LinearLayout
@@ -14,65 +14,78 @@
         android:layout_marginRight="10dp"
         android:layout_centerInParent="true"
         android:orientation="vertical">
-
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Phone Number"
+            android:textSize="15dp"
+            android:textColor="@android:color/white"/>
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editPhone"
             android:hint="Phone number"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:textColorHint="@android:color/white"
             android:text="0366199318"
             android:textSize="30dp"
             android:inputType="phone"
             app:met_baseColor="@android:color/white"
-            app:met_floatingLabel="highlight"
             app:met_primaryColor="@android:color/white"
-            app:met_floatingLabelTextSize="20dp"
             app:met_maxCharacters="11"
             app:met_singleLineEllipsis="true"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Full Name"
+            android:textSize="15dp"
+            android:textColor="@android:color/white"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editName"
             android:hint="Name"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:textColorHint="@android:color/white"
             android:text="Vuong Vu Bac Son"
             android:textSize="30dp"
             android:inputType="text"
             app:met_baseColor="@android:color/white"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="11"
             app:met_singleLineEllipsis="true"
-            app:met_primaryColor="@android:color/white"
-            app:met_floatingLabelTextSize="20dp"/>
+            app:met_primaryColor="@android:color/white"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Password"
+            android:textSize="15dp"
+            android:textColor="@android:color/white"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editPassword"
             android:hint="Password"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:textColorHint="@android:color/white"
             android:text="123"
             android:textSize="30dp"
             android:inputType="textPassword"
             app:met_baseColor="@color/whiteColor"
-            app:met_floatingLabel="highlight"
             app:met_singleLineEllipsis="true"
-            app:met_primaryColor="@android:color/white"
-            app:met_floatingLabelTextSize="20dp"/>
+            app:met_primaryColor="@android:color/white"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Repeat Password"
+            android:textSize="15dp"
+            android:textColor="@android:color/white"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editReenterPassword"
-            android:hint="Re enter Password"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:textColorHint="@android:color/white"
             android:text="123"
             android:textSize="30dp"
             android:inputType="textPassword"
             app:met_baseColor="@color/whiteColor"
-            app:met_floatingLabel="highlight"
             app:met_singleLineEllipsis="true"/>
 
     </LinearLayout>
