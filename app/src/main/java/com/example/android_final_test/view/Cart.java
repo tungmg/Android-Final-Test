@@ -4,9 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +30,6 @@ import com.example.android_final_test.model.Order;
 import com.example.android_final_test.model.Private;
 import com.example.android_final_test.model.Request;
 import com.example.android_final_test.viewHolder.CartViewHolder;
-import com.example.android_final_test.viewModel.ViewModelCartCount;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -53,12 +49,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class Cart extends AppCompatActivity implements View.OnClickListener, CartViewHolder.ItemClickListener {
+public class Cart extends AppCompatActivity implements View.OnClickListener{
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    FirebaseFirestore db;
-    CollectionReference requests;
     TextView textViewTotal;
     Button btnOrder;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -68,9 +62,6 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, Car
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-        db = FirebaseFirestore.getInstance();
-        requests = db.collection("Requests");
 
         recyclerView = findViewById(R.id.listCart);
         layoutManager = new LinearLayoutManager(this);
@@ -89,7 +80,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, Car
     public Integer loadOrder() {
         Integer count = 0;
         cart = new Database(this).getCarts();
-        CartViewHolder cartViewHolder = new CartViewHolder(getBaseContext(), cart, Cart.this);
+        CartViewHolder cartViewHolder = new CartViewHolder(getBaseContext(), cart);
         recyclerView.setAdapter(cartViewHolder);
         int total = 0;
         for(Order order : cart){
@@ -192,15 +183,5 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, Car
             }
         });
         alert.show();
-    }
-
-    @Override
-    public void onClick(int position) {
-
-    }
-
-    @Override
-    public void onDeleteClick(int position) {
-
     }
 }

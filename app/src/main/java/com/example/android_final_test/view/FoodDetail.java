@@ -2,10 +2,6 @@ package com.example.android_final_test.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,16 +12,12 @@ import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.android_final_test.Database.Database;
-import com.example.android_final_test.FoodList;
 import com.example.android_final_test.Home;
 import com.example.android_final_test.R;
 import com.example.android_final_test.model.Food;
 import com.example.android_final_test.model.Order;
-import com.example.android_final_test.viewHolder.FoodViewHolder;
-import com.example.android_final_test.viewModel.ViewModelCartCount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -80,15 +72,6 @@ public class FoodDetail extends AppCompatActivity implements View.OnClickListene
             System.out.println(foodId);
             loadFoodDetail(foodId);
         }
-
-//        numberOfOrder = new ViewModelProvider(this).get(ViewModelCartCount.class);
-//        LiveData<Integer> cartCount = numberOfOrder.init(cartCount());
-//        cartCount.observe(this, new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                btnGotoCart.setText(integer.toString());
-//            }
-//        });
     }
 
     private void loadFoodDetail(final String foodId) {
@@ -141,15 +124,4 @@ public class FoodDetail extends AppCompatActivity implements View.OnClickListene
             Toast.makeText(FoodDetail.this, "Added to Cart", Toast.LENGTH_LONG).show();
         }
     }
-
-//    public Integer cartCount(){
-//        Integer count = 0;
-//        List<Order> cart = new Database(this).getCarts();
-//        int total = 0;
-//        for(Order order : cart){
-//            total += (Integer.parseInt(order.getPrice()))*(Integer.parseInt(order.getQuantity()));
-//            count ++;
-//        }
-//        return count;
-//    }
 }

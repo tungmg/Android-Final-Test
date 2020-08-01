@@ -15,6 +15,7 @@ import android.widget.ViewFlipper;
 import com.example.android_final_test.model.Category;
 import com.example.android_final_test.model.Private;
 import com.example.android_final_test.view.Cart;
+import com.example.android_final_test.view.OrderStatus;
 import com.example.android_final_test.view.PersonAccount;
 import com.example.android_final_test.view.SignIn;
 import com.example.android_final_test.viewHolder.MenuViewHolder;
@@ -103,7 +104,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         recyclerView = findViewById(R.id.recyler_menu);
         recyclerView.setHasFixedSize(true);
-//        layoutManager = new LinearLayoutManager(this);
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -139,16 +139,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-//                || super.onSupportNavigateUp();
         return true;
     }
 
@@ -165,7 +161,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             startActivity(cart);
         }
         else if(id == R.id.nav_order){
-
+            Intent orderStatus = new Intent(Home.this, OrderStatus.class);
+            startActivity(orderStatus);
         }
         else if(id == R.id.nav_logout){
             Intent logout = new Intent(Home.this, SignIn.class);

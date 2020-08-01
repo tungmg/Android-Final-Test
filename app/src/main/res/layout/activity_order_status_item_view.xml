@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
     app:cardElevation="10dp">
-    
+
     <LinearLayout
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
@@ -13,7 +13,7 @@
         android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
@@ -21,33 +21,46 @@
             android:layout_weight="9">
 
             <TextView
-                android:id="@+id/cart_item_name"
+                android:id="@+id/order_status"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical|start"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:text="Food 1"
+                android:text="Shipped"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="25dp"/>
 
             <TextView
-                android:id="@+id/cart_item_price"
+                android:id="@+id/order_phone"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical|start"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:text="120,000"
+                android:text="0123"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="25dp"/>
+
+            <TextView
+                android:id="@+id/order_name"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical|start"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:text="Name"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"/>
+
+            <TextView
+                android:id="@+id/order_address"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical|start"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:text="Address"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"/>
 
         </LinearLayout>
-
-        <ImageView
-            android:layout_gravity="center_vertical|start"
-            android:id="@+id/cart_item_count"
-            android:layout_marginRight="16dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>
     </LinearLayout>
-    
+
 </androidx.cardview.widget.CardView>

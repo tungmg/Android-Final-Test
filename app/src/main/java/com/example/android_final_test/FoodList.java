@@ -70,7 +70,6 @@ public class FoodList extends AppCompatActivity implements FoodViewHolder.ItemCl
     }
 
     private void loadFood(String categoryId) {
-//        db = FirebaseFirestore.getInstance();
         Query query = food.whereEqualTo("CategoryId", categoryId);
         query.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

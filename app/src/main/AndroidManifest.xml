@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.PersonAccount"></activity>
+        <activity android:name=".view.OrderStatus"></activity>
+        <activity android:name=".view.PersonAccount" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -21,7 +22,6 @@
 
         <activity android:name=".view.Cart" />
         <activity android:name=".view.FoodDetail" />
-        <activity android:name=".view.FoodActivity" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
@@ -36,6 +36,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

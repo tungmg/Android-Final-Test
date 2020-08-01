@@ -60,4 +60,6 @@ dependencies {
 
     //noinspection GradleCompatible
     implementation 'com.android.support:design:26.+'
+    implementation 'com.google.firebase:firebase-iid:20.2.3'
+    implementation 'com.google.firebase:firebase-messaging:20.2.4'
 }
